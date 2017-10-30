@@ -1,6 +1,13 @@
 package main.scala
 
 object Main extends App {
-    val ages = Seq(42, 75, 29, 64)
-    println(s"The oldest person iss ${ages.max}")
+    val CARDS_IN_PACK = 52
+
+    def shuffledDeck(n: Int): Seq[Int] = {
+        val numberSet = 1 to CARDS_IN_PACK toSet
+        val shuffledDeck = numberSet.toSeq
+        return shuffledDeck
+    }
+
+    println(shuffledDeck(CARDS_IN_PACK))
 }
