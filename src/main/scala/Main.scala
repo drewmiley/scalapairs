@@ -15,22 +15,20 @@ object Main extends App {
 
     def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
         var deck = shuffledDeck
-        var last = 0
+        var nextCard = 0
         var activeCards = Set[Int]()
         var spacesUsed = 0
-        println(deck)
         while (deck.size > 0) {
-            last = deck.last
+            nextCard = deck.last
             deck = deck.init
-            if (activeCards(last)) {
-                activeCards = activeCards - last
-                spacesUsed -= 1
+            if (activeCards(nextCard)) {
+                activeCards = activeCards - nextCard
             } else {
-                activeCards = activeCards + last
-                spacesUsed += 1
+                activeCards = activeCards + nextCard
             }
-            println(activeCards)
-            println(spacesUsed)
+            if (spacesUsed < activeCards.size) {
+                spacesUsed = activeCards.size
+            }
         }
         spacesUsed
     }
