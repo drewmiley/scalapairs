@@ -14,22 +14,12 @@ object Main extends App {
     }
 
     def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
-        var deck = shuffledDeck
-        var nextCard = 0
         var activeCards = Set[Int]()
         var spacesUsed = 0
-        while (deck.size > 0) {
-            nextCard = deck.last
-            deck = deck.init
-            if (activeCards(nextCard)) {
-                activeCards = activeCards - nextCard
-            } else {
-                activeCards = activeCards + nextCard
-            }
-            if (spacesUsed < activeCards.size) {
-                spacesUsed = activeCards.size
-            }
-        }
+        shuffledDeck.map((i: Int) => {
+            activeCards = if (activeCards(i)) activeCards - i else activeCards + i
+            spacesUsed = math.max(spacesUsed, activeCards.size)
+        })
         spacesUsed
     }
 
@@ -39,7 +29,7 @@ object Main extends App {
     }
 
     def solitareWinPercentage(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Double = {
-        val gamesWon = (1 to gamesPlayed).filter((i: Int) => playPairsSolitare(newShuffle(pairsOfValues, numberOfCardValues), spaces)).size
+        val gamesWon = (1 to gamesPlayed).count((i: Int) => playPairsSolitare(newShuffle(pairsOfValues, numberOfCardValues), spaces))
         100.0 * gamesWon / gamesPlayed
     }
 
