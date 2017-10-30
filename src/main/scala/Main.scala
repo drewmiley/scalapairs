@@ -7,12 +7,18 @@ object Main extends App {
 
     def shuffle(n: Int): Seq[Int] = {
         val numberSet = 1 to CARDS_IN_PACK toSet
-        val shuffledDeck = numberSet.toSeq
+        val shuffledDeck = numberSet.toSeq.map((i: Int) => i % 13)
         shuffledDeck
     }
 
+    def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
+        println(shuffledDeck)
+        0
+    }
+
     def playPairsSolitare(shuffledDeck: Seq[Int], spaces: Int): Boolean = {
-        false
+        val spacesRequired = spacesRequiredForPairs(shuffledDeck)
+        spacesRequired <= spaces
     }
 
     def solitareWinPercentage(cardsInPacks: Int, spaces: Int, gamesPlayed: Int): Double = {
