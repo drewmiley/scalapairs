@@ -6,7 +6,7 @@ object Main extends App {
     val PAIRS_OF_VALUES = 2
     val NUMBER_OF_CARD_VALUES = 13
     val SPACES = 13
-    val GAMES_PLAYED = 1000
+    val GAMES_PLAYED = 10000
 
     def newShuffle(pairsOfValues: Int, numberOfCardValues: Int): Seq[Int] = {
         val orderedDeck = (1 to 2 * pairsOfValues * numberOfCardValues).map((i: Int) => i % numberOfCardValues)
