@@ -1,14 +1,15 @@
 package main.scala
 
+import scala.util.Random
+
 object Main extends App {
     val CARDS_IN_PACK = 52
     val SPACES = 13
     val GAMES_PLAYED = 1000
 
-    def shuffle(n: Int): Seq[Int] = {
-        val numberSet = 1 to CARDS_IN_PACK toSet
-        val shuffledDeck = numberSet.toSeq.map((i: Int) => i % 13)
-        shuffledDeck
+    def newShuffle(n: Int): Seq[Int] = {
+        val orderedDeck = (1 to CARDS_IN_PACK).map((i: Int) => i % 13)
+        Random.shuffle(orderedDeck)
     }
 
     def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
@@ -22,7 +23,7 @@ object Main extends App {
     }
 
     def solitareWinPercentage(cardsInPacks: Int, spaces: Int, gamesPlayed: Int): Double = {
-        val gameOutcomes = (1 to gamesPlayed).map((i: Int) => playPairsSolitare(shuffle(cardsInPacks), spaces))
+        val gameOutcomes = (1 to gamesPlayed).map((i: Int) => playPairsSolitare(newShuffle(cardsInPacks), spaces))
         val gamesWon = gameOutcomes.filter((b: Boolean) => b).size
         100.0 * gamesWon / gamesPlayed
     }
