@@ -16,7 +16,7 @@ object Main extends App {
     }
 
     def solitareWinPercentage(cardsInPacks: Int, spaces: Int, gamesPlayed: Int): Double = {
-        val gameOutcomes = (1 to gamesPlayed).toSeq.map((i: Int) => playPairsSolitare(shuffle(cardsInPacks), spaces))
+        val gameOutcomes = (1 to gamesPlayed).map((i: Int) => playPairsSolitare(shuffle(cardsInPacks), spaces))
         val gamesWon = gameOutcomes.filter((b: Boolean) => b).size
         100.0 * gamesWon / gamesPlayed
     }
