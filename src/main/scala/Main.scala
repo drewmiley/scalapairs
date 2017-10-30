@@ -16,14 +16,23 @@ object Main extends App {
     def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
         var deck = shuffledDeck
         var last = 0
+        var activeCards = Set[Int]()
+        var spacesUsed = 0
         println(deck)
         while (deck.size > 0) {
             last = deck.last
             deck = deck.init
-            println(last)
-            println(deck)
+            if (activeCards(last)) {
+                activeCards = activeCards - last
+                spacesUsed -= 1
+            } else {
+                activeCards = activeCards + last
+                spacesUsed += 1
+            }
+            println(activeCards)
+            println(spacesUsed)
         }
-        0
+        spacesUsed
     }
 
     def playPairsSolitare(shuffledDeck: Seq[Int], spaces: Int): Boolean = {
