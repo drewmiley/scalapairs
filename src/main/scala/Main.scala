@@ -3,17 +3,26 @@ package main.scala
 import scala.util.Random
 
 object Main extends App {
-    val CARDS_IN_PACK = 52
+    val PAIRS_OF_VALUES = 2
+    val NUMBER_OF_CARD_VALUES = 13
     val SPACES = 13
     val GAMES_PLAYED = 1000
 
-    def newShuffle(n: Int): Seq[Int] = {
-        val orderedDeck = (1 to CARDS_IN_PACK).map((i: Int) => i % 13)
+    def newShuffle(pairsOfValues: Int, numberOfCardValues: Int): Seq[Int] = {
+        val orderedDeck = (1 to 2 * pairsOfValues * numberOfCardValues).map((i: Int) => i % numberOfCardValues)
         Random.shuffle(orderedDeck)
     }
 
     def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
-        println(shuffledDeck)
+        var deck = shuffledDeck
+        var last = 0
+        println(deck)
+        while (deck.size > 0) {
+            last = deck.last
+            deck = deck.init
+            println(last)
+            println(deck)
+        }
         0
     }
 
@@ -22,16 +31,17 @@ object Main extends App {
         spacesRequired <= spaces
     }
 
-    def solitareWinPercentage(cardsInPacks: Int, spaces: Int, gamesPlayed: Int): Double = {
-        val gameOutcomes = (1 to gamesPlayed).map((i: Int) => playPairsSolitare(newShuffle(cardsInPacks), spaces))
-        val gamesWon = gameOutcomes.filter((b: Boolean) => b).size
+    def solitareWinPercentage(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Double = {
+        val gamesWon = (1 to gamesPlayed).filter((i: Int) => playPairsSolitare(newShuffle(pairsOfValues, numberOfCardValues), spaces)).size
         100.0 * gamesWon / gamesPlayed
     }
 
-    println("Cards in Packs")
-    println(CARDS_IN_PACK)
+    println("Pairs of Values")
+    println(PAIRS_OF_VALUES)
+    println("Number of card values")
+    println(NUMBER_OF_CARD_VALUES)
     println("Spaces")
     println(SPACES)
     println("Win Percentage")
-    println(solitareWinPercentage(CARDS_IN_PACK, SPACES, GAMES_PLAYED))
+    println(solitareWinPercentage(PAIRS_OF_VALUES, NUMBER_OF_CARD_VALUES, SPACES, GAMES_PLAYED))
 }
