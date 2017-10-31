@@ -33,22 +33,19 @@ object Main extends App {
     }
 
     def printSolitareGameInfo(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Unit = {
-        println("Pairs of Values")
-        println(pairsOfValues)
-        println("Number of card values")
-        println(numberOfCardValues)
-        println("Spaces")
-        println(spaces)
-        println("Win Percentage")
-        println(solitareWinPercentage(pairsOfValues, numberOfCardValues, spaces, gamesPlayed))
+        print(s"Pairs of Values: $pairsOfValues")
+        print(s"\tNumber of card values: $numberOfCardValues")
+        print(s"\tSpaces: $spaces")
+        val winPercentage = solitareWinPercentage(pairsOfValues, numberOfCardValues, spaces, gamesPlayed)
+        print(s"\tWin Percentage: $winPercentage")
+        println()
     }
     
     PAIRS_OF_VALUES.map((i: Int) => {
         NUMBER_OF_CARD_VALUES.map((j: Int) => {
             SPACES.map((k: Int) => {
-                printSolitareGameInfo(i, j, k, GAMES_PLAYED)
+                if (k <= j) printSolitareGameInfo(i, j, k, GAMES_PLAYED)
             })
         })
     })
-    printSolitareGameInfo(PAIRS_OF_VALUES(1), NUMBER_OF_CARD_VALUES(12), SPACES(12), GAMES_PLAYED)
 }
