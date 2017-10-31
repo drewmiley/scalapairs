@@ -3,14 +3,14 @@ package main.scala
 import scala.util.Random
 
 object Main extends App {
-    val PAIRS_OF_VALUES = 2
-    val NUMBER_OF_CARD_VALUES = 13
-    val SPACES = 13
+    val PAIRS_OF_VALUES = 1 to 2
+    val NUMBER_OF_CARD_VALUES = 1 to 26
+    val SPACES = 1 to 26
     val GAMES_PLAYED = 10000
 
     def newShuffle(pairsOfValues: Int, numberOfCardValues: Int): Seq[Int] = {
-        val orderedDeck = (1 to 2 * pairsOfValues * numberOfCardValues).map((i: Int) => i % numberOfCardValues)
-        Random.shuffle(orderedDeck)
+        Random.shuffle((1 to 2 * pairsOfValues * numberOfCardValues)
+                .map((i: Int) => i % numberOfCardValues))
     }
 
     def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
@@ -24,21 +24,24 @@ object Main extends App {
     }
 
     def playPairsSolitare(shuffledDeck: Seq[Int], spaces: Int): Boolean = {
-        val spacesRequired = spacesRequiredForPairs(shuffledDeck)
-        spacesRequired <= spaces
+        spacesRequiredForPairs(shuffledDeck) <= spaces
     }
 
     def solitareWinPercentage(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Double = {
-        val gamesWon = (1 to gamesPlayed).count((i: Int) => playPairsSolitare(newShuffle(pairsOfValues, numberOfCardValues), spaces))
-        100.0 * gamesWon / gamesPlayed
+        100.0 / gamesPlayed * (1 to gamesPlayed).count((i: Int) =>
+            playPairsSolitare(newShuffle(pairsOfValues, numberOfCardValues), spaces))
     }
 
-    println("Pairs of Values")
-    println(PAIRS_OF_VALUES)
-    println("Number of card values")
-    println(NUMBER_OF_CARD_VALUES)
-    println("Spaces")
-    println(SPACES)
-    println("Win Percentage")
-    println(solitareWinPercentage(PAIRS_OF_VALUES, NUMBER_OF_CARD_VALUES, SPACES, GAMES_PLAYED))
+    def printSolitareGameInfo(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Unit = {
+        println("Pairs of Values")
+        println(pairsOfValues)
+        println("Number of card values")
+        println(numberOfCardValues)
+        println("Spaces")
+        println(spaces)
+        println("Win Percentage")
+        println(solitareWinPercentage(pairsOfValues, numberOfCardValues, spaces, gamesPlayed))
+    }
+
+    printSolitareGameInfo(PAIRS_OF_VALUES(1), NUMBER_OF_CARD_VALUES(12), SPACES(12), GAMES_PLAYED)
 }
