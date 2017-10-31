@@ -6,7 +6,7 @@ object Main extends App {
     val PAIRS_OF_VALUES = 1 to 2
     val NUMBER_OF_CARD_VALUES = 1 to 26
     val SPACES = 1 to 26
-    val GAMES_PLAYED = 10000
+    val GAMES_PLAYED = 1000
 
     def newShuffle(pairsOfValues: Int, numberOfCardValues: Int): Seq[Int] = {
         Random.shuffle((1 to 2 * pairsOfValues * numberOfCardValues)
@@ -42,6 +42,13 @@ object Main extends App {
         println("Win Percentage")
         println(solitareWinPercentage(pairsOfValues, numberOfCardValues, spaces, gamesPlayed))
     }
-
+    
+    PAIRS_OF_VALUES.map((i: Int) => {
+        NUMBER_OF_CARD_VALUES.map((j: Int) => {
+            SPACES.map((k: Int) => {
+                printSolitareGameInfo(i, j, k, GAMES_PLAYED)
+            })
+        })
+    })
     printSolitareGameInfo(PAIRS_OF_VALUES(1), NUMBER_OF_CARD_VALUES(12), SPACES(12), GAMES_PLAYED)
 }
