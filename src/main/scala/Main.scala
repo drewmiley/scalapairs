@@ -5,24 +5,24 @@ object Main extends App {
     val NUMBER_OF_CARD_VALUES = 1 to 26
     val SPACES = 1 to 26
     val GAMES_PLAYED = 1000
-
-    def printSolitareGameInfo(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Unit = {
-        print(s"Pairs of Values: $pairsOfValues")
-        print(s"\tNumber of card values: $numberOfCardValues")
-        print(s"\tSpaces: $spaces")
-        val winPercentage = 100.0 * (1 to gamesPlayed).count((i: Int) =>
-            new PairsSolitare(new Deck(pairsOfValues, numberOfCardValues).shuffle(), spaces).play()) / gamesPlayed
-        print(s"\tWin Percentage: $winPercentage")
-        println()
-    }
     
     PAIRS_OF_VALUES.map((pairsOfValues: Int) => {
+        println()
+        print(s"Pairs of Values: $pairsOfValues")
+        println()
+        print("C\\S")
+        SPACES.map((spaces: Int) => {
+            print(s"\t$spaces")
+        })
+        println()
         NUMBER_OF_CARD_VALUES.map((numberOfCardValues: Int) => {
+            print(s"$numberOfCardValues")
             SPACES.map((spaces: Int) => {
-                if (spaces <= numberOfCardValues) {
-                    printSolitareGameInfo(pairsOfValues, numberOfCardValues, spaces, GAMES_PLAYED)
-                }
+                val winPercentage = if (spaces <= numberOfCardValues) Math.round(100.0 * (1 to GAMES_PLAYED).count((i: Int) =>
+                    new PairsSolitare(new Deck(pairsOfValues, numberOfCardValues).shuffle(), spaces).play()) / GAMES_PLAYED) else 100
+                print(s"\t$winPercentage")
             })
+            println()
         })
     })
 }
