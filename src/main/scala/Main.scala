@@ -1,50 +1,27 @@
 package main.scala
 
-import scala.util.Random
-
 object Main extends App {
     val PAIRS_OF_VALUES = 1 to 2
     val NUMBER_OF_CARD_VALUES = 1 to 26
     val SPACES = 1 to 26
     val GAMES_PLAYED = 1000
 
-    def newShuffle(pairsOfValues: Int, numberOfCardValues: Int): Seq[Int] = {
-        Random.shuffle((1 to 2 * pairsOfValues * numberOfCardValues)
-                .map((i: Int) => i % numberOfCardValues))
-    }
-
-    def spacesRequiredForPairs(shuffledDeck: Seq[Int]): Int = {
-        var activeCards = Set[Int]()
-        var spacesUsed = 0
-        shuffledDeck.map((i: Int) => {
-            activeCards = if (activeCards(i)) activeCards - i else activeCards + i
-            spacesUsed = math.max(spacesUsed, activeCards.size)
-        })
-        spacesUsed
-    }
-
-    def playPairsSolitare(shuffledDeck: Seq[Int], spaces: Int): Boolean = {
-        spacesRequiredForPairs(shuffledDeck) <= spaces
-    }
-
-    def solitareWinPercentage(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Double = {
-        100.0 / gamesPlayed * (1 to gamesPlayed).count((i: Int) =>
-            playPairsSolitare(newShuffle(pairsOfValues, numberOfCardValues), spaces))
-    }
-
     def printSolitareGameInfo(pairsOfValues: Int, numberOfCardValues: Int, spaces: Int, gamesPlayed: Int): Unit = {
         print(s"Pairs of Values: $pairsOfValues")
         print(s"\tNumber of card values: $numberOfCardValues")
         print(s"\tSpaces: $spaces")
-        val winPercentage = solitareWinPercentage(pairsOfValues, numberOfCardValues, spaces, gamesPlayed)
+        val winPercentage = 100.0 * (1 to gamesPlayed).count((i: Int) =>
+            new PairsSolitare(new Deck(pairsOfValues, numberOfCardValues).shuffle(), spaces).play()) / gamesPlayed
         print(s"\tWin Percentage: $winPercentage")
         println()
     }
     
-    PAIRS_OF_VALUES.map((i: Int) => {
-        NUMBER_OF_CARD_VALUES.map((j: Int) => {
-            SPACES.map((k: Int) => {
-                if (k <= j) printSolitareGameInfo(i, j, k, GAMES_PLAYED)
+    PAIRS_OF_VALUES.map((pairsOfValues: Int) => {
+        NUMBER_OF_CARD_VALUES.map((numberOfCardValues: Int) => {
+            SPACES.map((spaces: Int) => {
+                if (spaces <= numberOfCardValues) {
+                    printSolitareGameInfo(pairsOfValues, numberOfCardValues, spaces, GAMES_PLAYED)
+                }
             })
         })
     })
