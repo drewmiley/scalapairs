@@ -13,6 +13,6 @@ class PairsSolitare(shuffledDeck: Seq[Int], spaces: Int) {
     }
 
     def play(): Boolean = {
-        spacesRequiredForPairs(shuffledDeck) <= spaces
+        spacesRequiredForPairs(shuffledDeck) < spaces
     }
 }
