@@ -13,8 +13,7 @@ object Main extends App {
             print(s"\t$spaces")
         })
         print("\n")
-        NUMBER_OF_CARD_VALUES.map((numberOfCardValues: Int) => {
-            print(s"$numberOfCardValues")
+        val valueTable: String = NUMBER_OF_CARD_VALUES.map((numberOfCardValues: Int) => {
             val spacesRow: String = SPACES.map((spaces: Int) => {
                 val winPercentage = if (spaces <= numberOfCardValues) {
                     Math.round(100.0 * (1 to GAMES_PLAYED).count((i: Int) =>
@@ -24,7 +23,8 @@ object Main extends App {
                 }
                 s"\t$winPercentage"
             }).reduce(_ + _)
-            print(s"$spacesRow\n")
-        })
+            s"$numberOfCardValues$spacesRow\n"
+        }).reduce(_ + _)
+        print(valueTable)
     })
 }
