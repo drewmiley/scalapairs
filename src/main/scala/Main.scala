@@ -7,14 +7,12 @@ object Main extends App {
     val GAMES_PLAYED = 1000
     
     PAIRS_OF_VALUES.map((pairsOfValues: Int) => {
-        println()
-        print(s"Pairs of Values: $pairsOfValues")
-        println()
-        print("C\\S")
+        print(s"\nPairs of Values: $pairsOfValues")
+        print("\nC\\S")
         SPACES.map((spaces: Int) => {
             print(s"\t$spaces")
         })
-        println()
+        print("\n")
         NUMBER_OF_CARD_VALUES.map((numberOfCardValues: Int) => {
             print(s"$numberOfCardValues")
             SPACES.map((spaces: Int) => {
@@ -22,7 +20,7 @@ object Main extends App {
                     new PairsSolitare(new Deck(pairsOfValues, numberOfCardValues).shuffle(), spaces).play()) / GAMES_PLAYED) else 100
                 print(s"\t$winPercentage")
             })
-            println()
+            print("\n")
         })
     })
 }
