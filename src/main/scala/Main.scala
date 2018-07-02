@@ -6,13 +6,10 @@ object Main extends App {
     val SPACES = 1 to 26
     val GAMES_PLAYED = 1000
     
-    PAIRS_OF_VALUES.map((pairsOfValues: Int) => {
-        print(s"\nPairs of Values: $pairsOfValues")
-        print("\nC\\S")
-        SPACES.map((spaces: Int) => {
-            print(s"\t$spaces")
-        })
-        print("\n")
+    val results: String = PAIRS_OF_VALUES.map((pairsOfValues: Int) => {
+        val spacesHeader: String = SPACES.map((spaces: Int) => {
+            s"\t$spaces"
+        }).reduce(_ + _)
         val valueTable: String = NUMBER_OF_CARD_VALUES.map((numberOfCardValues: Int) => {
             val spacesRow: String = SPACES.map((spaces: Int) => {
                 val winPercentage = if (spaces <= numberOfCardValues) {
@@ -25,6 +22,12 @@ object Main extends App {
             }).reduce(_ + _)
             s"$numberOfCardValues$spacesRow\n"
         }).reduce(_ + _)
-        print(valueTable)
-    })
+        Seq(
+            s"\nPairs of Values: $pairsOfValues",
+            s"\nC\\S$spacesHeader",
+            s"\n$valueTable"
+        ).reduce(_ + _)
+    }).reduce(_ + _)
+    
+    print(results)
 }
