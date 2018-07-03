@@ -1,6 +1,6 @@
 package main.scala
 
-class PairsSolitare(shuffledDeck: Seq[Int], spaces: Int) {
+object PairsSolitare {
 
     case class State(activeCards: Set[Int] = Set(), spacesUsed: Int = 0)
 
@@ -12,7 +12,5 @@ class PairsSolitare(shuffledDeck: Seq[Int], spaces: Int) {
         }.spacesUsed
     }
 
-    def play(): Boolean = {
-        spacesRequiredForPairs(shuffledDeck) < spaces
-    }
+    def play(shuffledDeck: Seq[Int], spaces: Int): Boolean = spacesRequiredForPairs(shuffledDeck) < spaces
 }

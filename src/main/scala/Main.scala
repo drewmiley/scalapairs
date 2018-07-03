@@ -14,7 +14,7 @@ object Main extends App {
             val spacesRow: String = SPACES.map((spaces: Int) => {
                 val winPercentage = if (spaces <= numberOfCardValues) {
                     Math.round(100.0 * (1 to GAMES_PLAYED).count((i: Int) =>
-                        new PairsSolitare(new Deck(pairsOfValues, numberOfCardValues).shuffle(), spaces).play()) / GAMES_PLAYED)
+                        PairsSolitare.play(Deck.shuffle(pairsOfValues, numberOfCardValues), spaces)) / GAMES_PLAYED)
                 } else {
                     100
                 }
