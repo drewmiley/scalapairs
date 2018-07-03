@@ -15,7 +15,8 @@ object Main extends App {
     private def calculateWinPercentage(spaces: Int, numberOfCardValues: Int, pairsOfValues: Int, gamesPlayed: Int): Long = {
         if (spaces <= numberOfCardValues) {
             Math.round(100.0 * (1 to gamesPlayed).count((i: Int) =>
-                PairsSolitare.play(Deck.shuffle(pairsOfValues, numberOfCardValues), spaces)) / gamesPlayed)
+                PairsSolitare.play(Deck.shuffle(pairsOfValues, numberOfCardValues), spaces)
+            ) / gamesPlayed)
         } else {
             100
         }
